@@ -1,0 +1,14 @@
+{
+	"name": "leetcode",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:aplyd/leetcode.git",
+	"author": "aplyd <austin@ftacnik.com>",
+	"license": "MIT",
+	"dependencies": {
+		"jest": "^25.4.0"
+	},
+	"scripts": {
+		"test": "jest --watch"
+	}
+}

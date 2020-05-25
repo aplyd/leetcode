@@ -1,5 +1,5 @@
 const lengthOfLastWord = s => {
-	if (s.length > 0) {
+	if (s.length > 1) {
 		const arr = s.split(' ')
 		return arr[arr.length - 2].length > 0 ? arr[arr.length - 2].length : 0
 	} else {

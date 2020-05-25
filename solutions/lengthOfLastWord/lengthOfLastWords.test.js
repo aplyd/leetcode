@@ -29,3 +29,9 @@ test('actual empty string', () => {
 	const answer = 0
 	expect(lengthOfLastWord(string)).toBe(answer)
 })
+
+test('a', () => {
+	const string = 'a'
+	const answer = 1
+	expect(lengthOfLastWord(string)).toBe(answer)
+})

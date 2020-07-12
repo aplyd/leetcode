@@ -1,4 +1,4 @@
-function smallestComons(arr) {
+function smallestCommons(arr) {
 	const [one, two] = arr
 	let smaller, bigger
 	if (one > two) {
@@ -9,36 +9,29 @@ function smallestComons(arr) {
 		smaller = one
 	}
 
+	// get range of numbers sorted by largest first
 	const range = []
-	for (let i = smaller; i <= bigger; i++) {
-		range.push([i])
+	for (let i = bigger; i >= smaller; i--) {
+		range.push(i)
 	}
 
-	const multiplyAndCheckForCommons = (arr, count = 2) => {
-		const afterMultiplication = arr.map(subArr => {
-			const newNum = subArr[0] * count
-			return [...subArr, newNum]
-		})
+	// loop over the numbers to see if they're divisible
+	const allNumsDivisible = (arr, num) => {
+		return arr.every(i => num % i === 0)
+	}
 
-		let targetNum
-		for (let i = 0; i < afterMultiplication[0].length; i++) {
-			const targetFound = afterMultiplication.every(subArr => {
-				return subArr.includes(afterMultiplication[0][i])
-			})
-			if (targetFound) {
-				targetNum = afterMultiplication[0][i]
-				break
-			}
-		}
-
-		if (targetNum) {
-			return targetNum
+	let targetNum
+	let largestNum = range[0]
+	while (true) {
+		if (allNumsDivisible(range, largestNum)) {
+			targetNum = largestNum
+			break
 		} else {
-			return multiplyAndCheckForCommons(afterMultiplication, count + 1)
+			largestNum = largestNum + range[0]
 		}
 	}
 
-	return multiplyAndCheckForCommons(range)
+	return targetNum
 }
 
-module.exports = smallestComons
+module.exports = smallestCommons

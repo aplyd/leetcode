@@ -12,5 +12,5 @@ test('', () => {
 		['TWENTY', 60],
 		['ONE HUNDRED', 100],
 	])
-	expect(result).toBe({ status: 'OPEN', change: [['QUARTER', 0.5]] })
+	expect(result).toStrictEqual({ status: 'OPEN', change: [['QUARTER', 0.5]] })
 })

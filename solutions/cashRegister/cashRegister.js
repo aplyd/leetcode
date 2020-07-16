@@ -18,38 +18,43 @@ function register(price, cash, cid) {
 		return (acc += curr[1])
 	}, 0)
 
+	console.log(changeDue)
+
 	const remainingChange = cid.reverse().reduce(
-		({ arr, change }, curr, index) => {
+		({ arr, changeToGive }, curr, index) => {
 			let newValue = 0
 
-			if (COINS_AND_BILLS[index].value <= change) {
+			if (COINS_AND_BILLS[index].value <= changeToGive) {
 				while (
 					curr[1] - COINS_AND_BILLS[index].value > 0 &&
-					change > 0
+					changeToGive > 0 &&
+					newValue < curr[1]
 				) {
-					change -= COINS_AND_BILLS[index].value
+					changeToGive -= COINS_AND_BILLS[index].value
 					newValue += COINS_AND_BILLS[index].value
-					// console.log({ change })
+
+					changeToGive = Math.round(changeToGive * 100) / 100
 
 					// to stop infinite loop, check if remaining change due is less than current coin/bill
-					if (change < COINS_AND_BILLS[index].value) {
+					if (changeToGive < COINS_AND_BILLS[index].value) {
 						break
 					}
 				}
 				arr.push([curr[0], newValue])
 			}
 
-			return { arr, change }
+			return { arr, changeToGive }
 		},
-		{ arr: [], change: changeDue }
+		{ arr: [], changeToGive: changeDue }
 	)
 
-	if (changeDue > cidTotal || remainingChange.change > 0) {
+	if (changeDue > cidTotal || Math.round(remainingChange.change) > 0) {
 		return { status: 'INSUFFICIENT_FUNDS', change: [] }
 	} else if (cidTotal === remainingChange.change) {
 		return { status: 'CLOSED', change: cid }
 	} else {
-		return { status: 'OPEN', change: remainingChange.arr.reverse() }
+		console.log({ status: 'OPEN', change: remainingChange.arr })
+		return { status: 'OPEN', change: remainingChange.arr }
 	}
 }
 

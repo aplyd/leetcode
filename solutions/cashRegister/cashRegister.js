@@ -18,8 +18,6 @@ function register(price, cash, cid) {
 		return (acc += curr[1])
 	}, 0)
 
-	console.log(changeDue)
-
 	const remainingChange = cid.reverse().reduce(
 		({ arr, changeToGive }, curr, index) => {
 			let newValue = 0
@@ -48,12 +46,13 @@ function register(price, cash, cid) {
 		{ arr: [], changeToGive: changeDue }
 	)
 
-	if (changeDue > cidTotal || Math.round(remainingChange.change) > 0) {
+	const inssuficient = remainingChange.arr.every(subArr => subArr[1] === 0)
+
+	if (changeDue > cidTotal || remainingChange.change > 0 || inssuficient) {
 		return { status: 'INSUFFICIENT_FUNDS', change: [] }
-	} else if (cidTotal === remainingChange.change) {
-		return { status: 'CLOSED', change: cid }
+	} else if (cidTotal === changeDue) {
+		return { status: 'CLOSED', change: cid.reverse() }
 	} else {
-		console.log({ status: 'OPEN', change: remainingChange.arr })
 		return { status: 'OPEN', change: remainingChange.arr }
 	}
 }

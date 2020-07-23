@@ -11,9 +11,9 @@ const meeting = s => {
 	for (var i = 0; i < sorted.length; i++) {
 		sorted[i] =
 			'(' + sorted[i].split(':')[0] + ', ' + sorted[i].split(':')[1] + ')'
-	}
+    }
 
-	return sorted.join('')
+    return sorted.join('')
 }
 
 test('', () => {

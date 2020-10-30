@@ -1,8 +1,13 @@
-function solve(s) {
-	const vowels = ['a', 'e', 'i', 'o', 'u']
+function solve(s: string): number {
+	const vowels: string[] = ['a', 'e', 'i', 'o', 'u']
+
+	interface Acc {
+		counter: number
+		longest: number
+	}
 
 	return s.split('').reduce(
-		(acc, curr) => {
+		(acc: Acc, curr) => {
 			!vowels.includes(curr) ? (acc.counter = 0) : acc.counter++
 
 			acc.counter > acc.longest ? (acc.longest = acc.counter) : null

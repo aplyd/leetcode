@@ -1,6 +1,6 @@
 //www.codewars.com/kata/581e014b55f2c52bb00000f8/solutions/javascript
 
-https: function decipherThis(str) {
+function decipherThis(str) {
 	const wordsArr = str.split(' ')
 	const output = []
 
